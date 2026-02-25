@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Just Judds Lawncare | LaSalle-Peru, IL</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg-primary: #0a0f0a;
+    --bg-secondary: #111a11;
+    --bg-card: #151f15;
+    --bg-card-hover: #1a281a;
+    --accent: #7fcc3f;
+    --accent-dim: #5a9a2a;
+    --accent-glow: rgba(127, 204, 63, 0.15);
+    --text-primary: #eef2ea;
+    --text-secondary: #9aab8e;
+    --text-muted: #5f6e55;
+    --border: rgba(127, 204, 63, 0.1);
+    --border-hover: rgba(127, 204, 63, 0.25);
+    --font-display: 'Playfair Display', Georgia, serif;
+    --font-body: 'Outfit', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-body);
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    opacity: 0.03;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+  }
+
+  /* === NAVIGATION === */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    padding: 1.25rem 3rem;
+    display: flex; justify-content: space-between; align-items: center;
+    backdrop-filter: blur(20px);
+    background: rgba(10, 15, 10, 0.8);
+    border-bottom: 1px solid var(--border);
+    transition: all 0.4s ease;
+  }
+  nav.scrolled { padding: 0.8rem 3rem; background: rgba(10, 15, 10, 0.95); }
+  .nav-logo { font-family: var(--font-body); font-weight: 800; font-size: 1.2rem; letter-spacing: -0.02em; color: var(--text-primary); text-decoration: none; }
+  .nav-logo span { color: var(--accent); }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; align-items: center; }
+  .nav-links a { text-decoration: none; color: var(--text-secondary); font-size: 0.85rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; transition: color 0.3s; position: relative; }
+  .nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1.5px; background: var(--accent); transition: width 0.3s; }
+  .nav-links a:hover { color: var(--accent); }
+  .nav-links a:hover::after { width: 100%; }
+  .nav-cta { background: var(--accent) !important; color: var(--bg-primary) !important; padding: 0.6rem 1.5rem; border-radius: 100px; font-weight: 600 !important; letter-spacing: 0.04em !important; transition: transform 0.3s, box-shadow 0.3s !important; }
+  .nav-cta:hover { transform: scale(1.05); box-shadow: 0 0 30px var(--accent-glow); }
+  .nav-cta::after { display: none !important; }
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+  .hamburger span { width: 24px; height: 2px; background: var(--text-primary); border-radius: 2px; transition: all 0.3s; }
+
+  /* === HERO === */
+  .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 8rem 3rem 6rem; position: relative; overflow: hidden; }
+  .hero-bg { position: absolute; inset: 0; background: radial-gradient(ellipse 80% 60% at 70% 40%, rgba(127,204,63,0.06), transparent), radial-gradient(ellipse 50% 50% at 20% 80%, rgba(90,154,42,0.04), transparent); z-index: 0; }
+  .hero-grid-lines { position: absolute; inset: 0; background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px); background-size: 80px 80px; opacity: 0.3; mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%); z-index: 0; }
+  .hero-content { position: relative; z-index: 1; max-width: 900px; }
+  .hero-badge { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--accent-glow); border: 1px solid var(--border-hover); border-radius: 100px; padding: 0.4rem 1.2rem; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 2rem; animation: fadeUp 0.8s ease both; }
+  .hero-badge .dot { width: 6px; height: 6px; background: var(--accent); border-radius: 50%; animation: pulse 2s infinite; }
+  .hero h1 { font-family: var(--font-display); font-size: clamp(3rem, 7vw, 6rem); font-weight: 700; line-height: 1.05; letter-spacing: -0.03em; margin-bottom: 1.5rem; animation: fadeUp 0.8s ease 0.15s both; }
+  .hero h1 em { font-style: italic; color: var(--accent); font-weight: 400; }
+  .hero-sub { font-size: 1.15rem; color: var(--text-secondary); max-width: 520px; line-height: 1.7; margin-bottom: 2.5rem; animation: fadeUp 0.8s ease 0.3s both; }
+  .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; animation: fadeUp 0.8s ease 0.45s both; }
+  .btn-primary { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--accent); color: var(--bg-primary); padding: 1rem 2rem; border-radius: 100px; text-decoration: none; font-weight: 700; font-size: 0.9rem; letter-spacing: 0.03em; transition: transform 0.3s, box-shadow 0.3s; border: none; cursor: pointer; font-family: var(--font-body); }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 40px rgba(127,204,63,0.3); }
+  .btn-secondary { display: inline-flex; align-items: center; gap: 0.5rem; background: transparent; color: var(--text-primary); padding: 1rem 2rem; border-radius: 100px; text-decoration: none; font-weight: 600; font-size: 0.9rem; letter-spacing: 0.03em; border: 1px solid var(--border-hover); transition: all 0.3s; cursor: pointer; }
+  .btn-secondary:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-glow); }
+  .hero-stats { display: flex; gap: 3rem; margin-top: 4rem; padding-top: 3rem; border-top: 1px solid var(--border); animation: fadeUp 0.8s ease 0.6s both; }
+  .stat-item h3 { font-family: var(--font-display); font-size: 2.5rem; font-weight: 700; color: var(--accent); line-height: 1; }
+  .stat-item p { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 0.3rem; font-weight: 500; }
+
+  /* === SECTIONS === */
+  section { padding: 6rem 3rem; position: relative; }
+  .section-label { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.75rem; }
+  .section-label::before { content: ''; width: 30px; height: 1px; background: var(--accent); }
+  .section-title { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 700; letter-spacing: -0.02em; line-height: 1.15; margin-bottom: 1rem; }
+  .section-subtitle { color: var(--text-secondary); max-width: 550px; font-size: 1.05rem; line-height: 1.7; margin-bottom: 3rem; }
+
+  /* === SERVICES === */
+  #services { background: var(--bg-secondary); }
+  .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; max-width: 1200px; }
+  .service-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 2.5rem 2rem; transition: all 0.4s ease; position: relative; overflow: hidden; }
+  .service-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--accent), transparent); opacity: 0; transition: opacity 0.4s; }
+  .service-card:hover { border-color: var(--border-hover); background: var(--bg-card-hover); transform: translateY(-4px); }
+  .service-card:hover::before { opacity: 1; }
+  .service-icon { width: 48px; height: 48px; background: var(--accent-glow); border: 1px solid var(--border-hover); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; margin-bottom: 1.5rem; }
+  .service-card h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 0.6rem; }
+  .service-card p { color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6; margin-bottom: 1.5rem; }
+  .service-price { display: inline-block; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); background: var(--accent-glow); padding: 0.35rem 0.9rem; border-radius: 100px; border: 1px solid var(--border-hover); }
+
+  /* === ABOUT === */
+  #about { background: var(--bg-primary); }
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; max-width: 1200px; }
+  .about-text p { color: var(--text-secondary); font-size: 1.05rem; line-height: 1.8; margin-bottom: 1.5rem; }
+  .about-features { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-top: 2rem; }
+  .about-feature { display: flex; align-items: flex-start; gap: 0.75rem; }
+  .about-feature .check { flex-shrink: 0; width: 22px; height: 22px; background: var(--accent-glow); border: 1px solid var(--border-hover); border-radius: 6px; display: flex; align-items: center; justify-content: center; color: var(--accent); font-size: 0.7rem; margin-top: 2px; }
+  .about-feature span { font-size: 0.9rem; color: var(--text-secondary); font-weight: 500; }
+  .about-visual { position: relative; height: 450px; border-radius: 20px; overflow: hidden; border: 1px solid var(--border); }
+  .about-visual-inner { width: 100%; height: 100%; background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-secondary) 100%); display: flex; align-items: center; justify-content: center; position: relative; }
+  .about-visual-pattern { position: absolute; inset: 0; background-image: radial-gradient(circle at 2px 2px, var(--accent-dim) 1px, transparent 0); background-size: 32px 32px; opacity: 0.15; }
+  .about-visual-icon { font-size: 6rem; opacity: 0.6; position: relative; z-index: 1; }
+  .about-visual-badge { position: absolute; bottom: 2rem; left: 2rem; background: rgba(10,15,10,0.85); backdrop-filter: blur(10px); border: 1px solid var(--border-hover); border-radius: 12px; padding: 1rem 1.5rem; z-index: 2; }
+  .about-visual-badge h4 { font-family: var(--font-display); font-size: 1.8rem; color: var(--accent); line-height: 1; }
+  .about-visual-badge p { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; margin-top: 0.2rem; }
+
+  /* === CONTACT === */
+  #contact { background: var(--bg-secondary); }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; max-width: 1200px; }
+  .contact-info { display: flex; flex-direction: column; gap: 2rem; }
+  .contact-item { display: flex; align-items: flex-start; gap: 1rem; }
+  .contact-icon { width: 44px; height: 44px; background: var(--accent-glow); border: 1px solid var(--border-hover); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; }
+  .contact-item h4 { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); margin-bottom: 0.25rem; font-weight: 600; }
+  .contact-item p, .contact-item a { font-size: 1.05rem; color: var(--text-primary); text-decoration: none; transition: color 0.3s; }
+  .contact-item a:hover { color: var(--accent); }
+  .contact-form { display: flex; flex-direction: column; gap: 1.25rem; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+  .contact-form input, .contact-form textarea, .contact-form select { width: 100%; background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 1rem 1.25rem; color: var(--text-primary); font-family: var(--font-body); font-size: 0.9rem; transition: border-color 0.3s, box-shadow 0.3s; outline: none; }
+  .contact-form input::placeholder, .contact-form textarea::placeholder { color: var(--text-muted); }
+  .contact-form input:focus, .contact-form textarea:focus, .contact-form select:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-glow); }
+  .contact-form textarea { resize: vertical; min-height: 120px; }
+  .contact-form select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%239aab8e' stroke-width='1.5' fill='none'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 1.25rem center; cursor: pointer; }
+  .contact-form select option { background: var(--bg-card); color: var(--text-primary); }
+
+  /* === FOOTER === */
+  footer { padding: 3rem; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; background: var(--bg-primary); }
+  .footer-left { font-size: 0.8rem; color: var(--text-muted); }
+  .footer-right { display: flex; gap: 2rem; }
+  .footer-right a { font-size: 0.8rem; color: var(--text-muted); text-decoration: none; transition: color 0.3s; }
+  .footer-right a:hover { color: var(--accent); }
+
+  /* === CHATBOT === */
+  .chat-fab { position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 10000; width: 60px; height: 60px; border-radius: 50%; background: var(--accent); border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 25px rgba(127,204,63,0.4); transition: transform 0.3s, box-shadow 0.3s; }
+  .chat-fab:hover { transform: scale(1.1); box-shadow: 0 6px 35px rgba(127,204,63,0.5); }
+  .chat-fab svg { width: 26px; height: 26px; fill: var(--bg-primary); }
+  .chat-fab .close-icon { display: none; }
+  .chat-fab.open .chat-icon { display: none; }
+  .chat-fab.open .close-icon { display: block; }
+  .chat-window { position: fixed; bottom: 5.5rem; right: 1.5rem; z-index: 10000; width: 400px; max-height: 550px; background: var(--bg-primary); border: 1px solid var(--border-hover); border-radius: 20px; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.5); opacity: 0; transform: translateY(20px) scale(0.95); pointer-events: none; transition: opacity 0.3s, transform 0.3s; }
+  .chat-window.open { opacity: 1; transform: translateY(0) scale(1); pointer-events: all; }
+  .chat-header { padding: 1.25rem 1.5rem; background: var(--bg-secondary); border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 0.75rem; }
+  .chat-header-avatar { width: 36px; height: 36px; border-radius: 50%; background: var(--accent); display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; }
+  .chat-header-info h4 { font-size: 0.9rem; font-weight: 700; color: var(--text-primary); line-height: 1.2; }
+  .chat-header-info p { font-size: 0.7rem; color: var(--accent); font-weight: 600; display: flex; align-items: center; gap: 0.35rem; }
+  .chat-header-info p .online-dot { width: 5px; height: 5px; background: var(--accent); border-radius: 50%; animation: pulse 2s infinite; }
+  .chat-messages { flex: 1; overflow-y: auto; padding: 1.25rem; display: flex; flex-direction: column; gap: 1rem; min-height: 300px; max-height: 350px; }
+  .chat-messages::-webkit-scrollbar { width: 4px; }
+  .chat-messages::-webkit-scrollbar-track { background: transparent; }
+  .chat-messages::-webkit-scrollbar-thumb { background: var(--border-hover); border-radius: 4px; }
+  .chat-msg { max-width: 85%; padding: 0.85rem 1.1rem; border-radius: 16px; font-size: 0.88rem; line-height: 1.55; animation: msgIn 0.3s ease both; }
+  .chat-msg.bot { background: var(--bg-card); border: 1px solid var(--border); color: var(--text-secondary); align-self: flex-start; border-bottom-left-radius: 4px; }
+  .chat-msg.user { background: var(--accent); color: var(--bg-primary); align-self: flex-end; border-bottom-right-radius: 4px; font-weight: 500; }
+  .chat-msg.typing { display: flex; gap: 4px; align-items: center; padding: 1rem 1.2rem; }
+  .chat-msg.typing span { width: 7px; height: 7px; background: var(--text-muted); border-radius: 50%; animation: typingBounce 1.4s infinite; }
+  .chat-msg.typing span:nth-child(2) { animation-delay: 0.2s; }
+  .chat-msg.typing span:nth-child(3) { animation-delay: 0.4s; }
+  .chat-input-area { padding: 1rem 1.25rem; border-top: 1px solid var(--border); display: flex; gap: 0.75rem; background: var(--bg-secondary); }
+  .chat-input-area input { flex: 1; background: var(--bg-card); border: 1px solid var(--border); border-radius: 100px; padding: 0.75rem 1.25rem; color: var(--text-primary); font-family: var(--font-body); font-size: 0.88rem; outline: none; transition: border-color 0.3s; }
+  .chat-input-area input::placeholder { color: var(--text-muted); }
+  .chat-input-area input:focus { border-color: var(--accent); }
+  .chat-send { width: 42px; height: 42px; border-radius: 50%; background: var(--accent); border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: transform 0.2s; flex-shrink: 0; }
+  .chat-send:hover { transform: scale(1.1); }
+  .chat-send:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+  .chat-send svg { width: 18px; height: 18px; fill: var(--bg-primary); }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+  @keyframes msgIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes typingBounce { 0%, 60%, 100% { transform: translateY(0); } 30% { transform: translateY(-5px); } }
+  .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    .nav-links.open { display: flex; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: rgba(10,15,10,0.98); backdrop-filter: blur(20px); padding: 2rem; gap: 1.5rem; border-bottom: 1px solid var(--border); }
+    .hero { padding: 7rem 1.5rem 4rem; }
+    .hero-stats { gap: 2rem; flex-wrap: wrap; }
+    .stat-item h3 { font-size: 2rem; }
+    section { padding: 4rem 1.5rem; }
+    .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .about-visual { height: 300px; }
+    .about-features { grid-template-columns: 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+    .services-grid { grid-template-columns: 1fr; }
+    .chat-window { width: calc(100vw - 2rem); right: 1rem; bottom: 5rem; max-height: 70vh; }
+    footer { flex-direction: column; text-align: center; padding: 2rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">JUST<span>JUDDS</span></a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="tel:+17796018534" class="nav-cta">Call Now</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid-lines"></div>
+  <div class="hero-content">
+    <div class="hero-badge"><span class="dot"></span> Serving LaSalle-Peru & the Illinois Valley</div>
+    <h1>Your Lawn,<br><em>Perfected.</em></h1>
+    <p class="hero-sub">Professional lawn care, landscaping, and seasonal services trusted by homeowners and businesses across the Illinois Valley since 2010.</p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn-primary">Get a Free Estimate →</a>
+      <a href="tel:+17796018534" class="btn-secondary">📞 (779) 601-8534</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item"><h3>49+</h3><p>Active Accounts</p></div>
+      <div class="stat-item"><h3>14</h3><p>Years in Business</p></div>
+      <div class="stat-item"><h3>100%</h3><p>Locally Owned</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="section-label reveal">What We Do</div>
+  <h2 class="section-title reveal">Services Built for<br>Every Season</h2>
+  <p class="section-subtitle reveal">From weekly mows to full seasonal cleanups — we handle it all so you don't have to.</p>
+  <div class="services-grid">
+    <div class="service-card reveal"><div class="service-icon">🌿</div><h3>Lawn Mowing</h3><p>Reliable weekly and bi-weekly mowing with meticulous edging and trimming. Clean stripes, sharp lines, every time.</p><span class="service-price">Starting at $35</span></div>
+    <div class="service-card reveal"><div class="service-icon">✂️</div><h3>Hedge Trimming</h3><p>Precision shaping and maintenance for hedges, bushes, and ornamental shrubs. Keep your property looking sharp year-round.</p><span class="service-price">$30 / Hour</span></div>
+    <div class="service-card reveal"><div class="service-icon">🍂</div><h3>Fall Cleanup</h3><p>Complete leaf removal, bed cleanup, and property prep before winter sets in. We leave your yard spotless.</p><span class="service-price">Starting at $50</span></div>
+    <div class="service-card reveal"><div class="service-icon">❄️</div><h3>Snow Removal</h3><p>Dependable residential and commercial snow clearing when Illinois winter hits. Driveways, walkways, and lots.</p><span class="service-price">Starting at $35</span></div>
+    <div class="service-card reveal"><div class="service-icon">🌸</div><h3>Landscaping</h3><p>Custom garden design, mulching, bed installation, and seasonal plantings to transform your outdoor space.</p><span class="service-price">Custom Quote</span></div>
+    <div class="service-card reveal"><div class="service-icon">🏢</div><h3>Commercial Services</h3><p>Full-service property maintenance for businesses, HOAs, and commercial properties throughout the Illinois Valley.</p><span class="service-price">Custom Quote</span></div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-grid">
+    <div class="about-text">
+      <div class="section-label reveal">About Us</div>
+      <h2 class="section-title reveal">Dependable Care,<br>Every Cut.</h2>
+      <p class="reveal">Just Judds Lawncare has built a reputation on reliability and value across the LaSalle-Peru area. We're a team of outdoor professionals committed to making your residential or commercial property look its best — season after season.</p>
+      <p class="reveal">We believe in honest work, fair pricing, and showing up when we say we will. That's why dozens of homeowners and businesses trust us with their properties year-round.</p>
+      <div class="about-features reveal">
+        <div class="about-feature"><div class="check">✓</div><span>Fully Insured</span></div>
+        <div class="about-feature"><div class="check">✓</div><span>Free Estimates</span></div>
+        <div class="about-feature"><div class="check">✓</div><span>Residential & Commercial</span></div>
+        <div class="about-feature"><div class="check">✓</div><span>Year-Round Service</span></div>
+      </div>
+    </div>
+    <div class="about-visual reveal">
+      <div class="about-visual-inner">
+        <div class="about-visual-pattern"></div>
+        <div class="about-visual-icon">🌱</div>
+        <div class="about-visual-badge"><h4>Since 2010</h4><p>Trusted Locally</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-grid">
+    <div>
+      <div class="section-label reveal">Get In Touch</div>
+      <h2 class="section-title reveal">Ready for a<br><em style="font-family:var(--font-display);color:var(--accent);font-style:italic;">Better Lawn?</em></h2>
+      <p class="section-subtitle reveal">Reach out for a free estimate. We'll get back to you within 24 hours.</p>
+      <div class="contact-info reveal">
+        <div class="contact-item"><div class="contact-icon">📞</div><div><h4>Phone</h4><a href="tel:+17796018534">(779) 601-8534</a></div></div>
+        <div class="contact-item"><div class="contact-icon">✉️</div><div><h4>Email</h4><a href="mailto:judsonheess445@gmail.com">judsonheess445@gmail.com</a></div></div>
+        <div class="contact-item"><div class="contact-icon">📍</div><div><h4>Service Area</h4><p>LaSalle-Peru, Oglesby, Utica & the Illinois Valley</p></div></div>
+      </div>
+    </div>
+    <form class="contact-form reveal" onsubmit="handleSubmit(event)">
+      <div class="form-row">
+        <input type="text" placeholder="First Name" required>
+        <input type="text" placeholder="Last Name" required>
+      </div>
+      <input type="email" placeholder="Email Address" required>
+      <input type="tel" placeholder="Phone Number">
+      <select required>
+        <option value="" disabled selected>Select a Service</option>
+        <option>Lawn Mowing</option><option>Hedge Trimming</option><option>Fall Cleanup</option>
+        <option>Snow Removal</option><option>Landscaping</option><option>Commercial Services</option><option>Other</option>
+      </select>
+      <textarea placeholder="Tell us about your property or project..."></textarea>
+      <button type="submit" class="btn-primary" style="justify-content:center;">Submit Request →</button>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-left">© 2025 Just Judds Lawncare. All rights reserved.</div>
+  <div class="footer-right">
+    <a href="tel:+17796018534">(779) 601-8534</a>
+    <a href="mailto:judsonheess445@gmail.com">Email Us</a>
+  </div>
+</footer>
+
+<!-- CHATBOT -->
+<button class="chat-fab" id="chatFab" aria-label="Open chat">
+  <svg class="chat-icon" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H5.2L4 17.2V4h16v12z"/><path d="M7 9h10v2H7zM7 6h10v2H7z"/></svg>
+  <svg class="close-icon" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+</button>
+<div class="chat-window" id="chatWindow">
+  <div class="chat-header">
+    <div class="chat-header-avatar">🌿</div>
+    <div class="chat-header-info"><h4>Just Judds Assistant</h4><p><span class="online-dot"></span> Online now</p></div>
+  </div>
+  <div class="chat-messages" id="chatMessages">
+    <div class="chat-msg bot">Hey there! 👋 I'm the Just Judds virtual assistant. I can answer questions about our services, pricing, and service area. How can I help you today?</div>
+  </div>
+  <div class="chat-input-area">
+    <input type="text" id="chatInput" placeholder="Ask about our services..." autocomplete="off">
+    <button class="chat-send" id="chatSend" aria-label="Send">
+      <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+    </button>
+  </div>
+</div>
+
+<script>
+  // === NAV ===
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => navbar.classList.toggle('scrolled', window.scrollY > 50));
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('navLinks');
+  hamburger.addEventListener('click', () => navLinks.classList.toggle('open'));
+  navLinks.querySelectorAll('a').forEach(l => l.addEventListener('click', () => navLinks.classList.remove('open')));
+
+  // === SCROLL REVEAL ===
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // === FORM ===
+  function handleSubmit(e) {
+    e.preventDefault();
+    const btn = e.target.querySelector('button');
+    btn.textContent = '✓ Request Sent!';
+    btn.style.background = '#5a9a2a';
+    setTimeout(() => { btn.textContent = 'Submit Request →'; btn.style.background = ''; e.target.reset(); }, 3000);
+  }
+
+  // === CHATBOT ===
+  const chatFab = document.getElementById('chatFab');
+  const chatWindow = document.getElementById('chatWindow');
+  const chatMessages = document.getElementById('chatMessages');
+  const chatInput = document.getElementById('chatInput');
+  const chatSend = document.getElementById('chatSend');
+  let isStreaming = false;
+
+  // ── Point this to your deployed backend URL ──
+  const API_URL = '/chat';
+
+  chatFab.addEventListener('click', () => {
+    chatFab.classList.toggle('open');
+    chatWindow.classList.toggle('open');
+    if (chatWindow.classList.contains('open')) chatInput.focus();
+  });
+
+  function addMessage(text, sender) {
+    const msg = document.createElement('div');
+    msg.className = `chat-msg ${sender}`;
+    msg.textContent = text;
+    chatMessages.appendChild(msg);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+    return msg;
+  }
+
+  function showTyping() {
+    const msg = document.createElement('div');
+    msg.className = 'chat-msg bot typing';
+    msg.id = 'typingIndicator';
+    msg.innerHTML = '<span></span><span></span><span></span>';
+    chatMessages.appendChild(msg);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  }
+
+  function removeTyping() {
+    const el = document.getElementById('typingIndicator');
+    if (el) el.remove();
+  }
+
+  function getConversationHistory() {
+    const msgs = [];
+    const allMsgs = chatMessages.querySelectorAll('.chat-msg:not(.typing)');
+    // Skip the first greeting message
+    for (let i = 1; i < allMsgs.length; i++) {
+      const el = allMsgs[i];
+      const role = el.classList.contains('user') ? 'user' : 'assistant';
+      msgs.push({ role, content: el.textContent });
+    }
+    return msgs;
+  }
+
+  async function sendMessage() {
+    const text = chatInput.value.trim();
+    if (!text || isStreaming) return;
+
+    addMessage(text, 'user');
+    chatInput.value = '';
+    isStreaming = true;
+    chatSend.disabled = true;
+    showTyping();
+
+    try {
+      const response = await fetch(API_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ messages: getConversationHistory() })
+      });
+
+      const data = await response.json();
+      removeTyping();
+
+      if (data.error) {
+        addMessage("I'm having trouble right now. Please call us at (779) 601-8534!", 'bot');
+      } else {
+        addMessage(data.reply, 'bot');
+      }
+    } catch (err) {
+      removeTyping();
+      addMessage("I'm having trouble connecting right now. You can reach us directly at (779) 601-8534!", 'bot');
+    }
+
+    isStreaming = false;
+    chatSend.disabled = false;
+    chatInput.focus();
+  }
+
+  chatSend.addEventListener('click', sendMessage);
+  chatInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') sendMessage(); });
+</script>
+
+</body>
+</html>
