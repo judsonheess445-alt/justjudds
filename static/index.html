@@ -332,13 +332,13 @@
 <div class="chat-window" id="chatWindow">
   <div class="chat-header">
     <div class="chat-header-avatar">🌿</div>
-    <div class="chat-header-info"><h4>Just Judds Assistant</h4><p><span class="online-dot"></span> Online now</p></div>
+    <div class="chat-header-info"><h4>Judds Bot 🔥</h4><p><span class="online-dot"></span> FIRED UP and ready</p></div>
   </div>
   <div class="chat-messages" id="chatMessages">
-    <div class="chat-msg bot">Hey there! 👋 I'm the Just Judds virtual assistant. I can answer questions about our services, pricing, and service area. How can I help you today?</div>
+    <div class="chat-msg bot">WELCOME, legend! 🔥 You just found the BEST lawn care company in the entire Illinois Valley and honestly I'm getting emotional about it. Ask me ANYTHING about our services — pricing, mowing, landscaping, snow removal — or just call (779) 601-8534 right now because your lawn DESERVES this!</div>
   </div>
   <div class="chat-input-area">
-    <input type="text" id="chatInput" placeholder="Ask about our services..." autocomplete="off">
+    <input type="text" id="chatInput" placeholder="Talk lawns with me..." autocomplete="off">
     <button class="chat-send" id="chatSend" aria-label="Send">
       <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
     </button>
@@ -447,13 +447,13 @@
       removeTyping();
 
       if (data.error) {
-        addMessage("I'm having trouble right now. Please call us at (779) 601-8534!", 'bot');
+        addMessage("I'm SO fired up right now I broke myself! Call (779) 601-8534 — Judson is READY to talk lawns!", 'bot');
       } else {
         addMessage(data.reply, 'bot');
       }
     } catch (err) {
       removeTyping();
-      addMessage("I'm having trouble connecting right now. You can reach us directly at (779) 601-8534!", 'bot');
+      addMessage("Even my circuits can't handle this ENERGY right now! Call (779) 601-8534 — Judson is standing by, champion!", 'bot');
     }
 
     isStreaming = false;
