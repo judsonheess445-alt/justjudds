@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Schedule Estimate | Just Judds</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg: #0a0f0a; --bg2: #111a11; --card: #151f15; --card2: #1a281a;
+    --accent: #7fcc3f; --accent-dim: #5a9a2a; --glow: rgba(127,204,63,0.15);
+    --text: #eef2ea; --text2: #9aab8e; --muted: #5f6e55;
+    --border: rgba(127,204,63,0.1); --border2: rgba(127,204,63,0.25);
+    --green: #4ade80; --yellow: #facc15; --red: #ef4444; --blue: #60a5fa;
+  }
+  body { font-family: 'Outfit', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; padding: 1rem; }
+
+  .container { max-width: 800px; margin: 0 auto; }
+
+  .header { text-align: center; padding: 2rem 0 1.5rem; }
+  .header h1 { font-size: 1.5rem; font-weight: 800; margin-bottom: 0.25rem; }
+  .header h1 span { color: var(--accent); }
+  .header .lead-id { font-size: 0.75rem; color: var(--muted); letter-spacing: 0.1em; }
+
+  .status-badge {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    padding: 0.35rem 1rem; border-radius: 100px; font-size: 0.75rem;
+    font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
+    margin-bottom: 1.5rem;
+  }
+  .status-badge.new { background: rgba(96,165,250,0.15); color: var(--blue); border: 1px solid rgba(96,165,250,0.3); }
+  .status-badge.scheduled { background: rgba(74,222,128,0.15); color: var(--green); border: 1px solid rgba(74,222,128,0.3); }
+  .status-badge .dot { width: 6px; height: 6px; border-radius: 50%; }
+  .status-badge.new .dot { background: var(--blue); }
+  .status-badge.scheduled .dot { background: var(--green); }
+
+  /* Cards */
+  .card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 16px; padding: 1.5rem; margin-bottom: 1rem;
+  }
+  .card-title {
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--accent); margin-bottom: 1rem;
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+  .card-title::before { content: ''; width: 20px; height: 1px; background: var(--accent); }
+
+  /* Info grid */
+  .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+  .info-item label { display: block; font-size: 0.7rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.15rem; }
+  .info-item .val { font-size: 0.95rem; font-weight: 600; }
+  .info-item .val.accent { color: var(--accent); }
+  .info-item.full { grid-column: 1 / -1; }
+
+  /* Quick action buttons */
+  .actions { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 1rem; }
+  .action-btn {
+    display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+    background: var(--card); border: 1px solid var(--border2);
+    border-radius: 12px; padding: 0.85rem; color: var(--text);
+    text-decoration: none; font-size: 0.85rem; font-weight: 600;
+    transition: all 0.2s; cursor: pointer; font-family: 'Outfit', sans-serif;
+  }
+  .action-btn:hover { background: var(--card2); transform: translateY(-1px); }
+  .action-btn.primary { background: var(--accent); color: var(--bg); border-color: var(--accent); }
+  .action-btn.primary:hover { box-shadow: 0 4px 20px rgba(127,204,63,0.3); }
+
+  /* Route analysis */
+  .route-card {
+    background: var(--bg2); border: 1px solid var(--border);
+    border-radius: 12px; padding: 1.25rem; margin-bottom: 0.75rem;
+  }
+  .route-card h4 { font-size: 0.85rem; font-weight: 700; margin-bottom: 0.5rem; }
+  .route-stat {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0.4rem 0; border-bottom: 1px solid var(--border);
+    font-size: 0.85rem;
+  }
+  .route-stat:last-child { border: none; }
+  .route-stat .label { color: var(--text2); }
+  .route-stat .value { font-weight: 700; }
+  .route-stat .value.green { color: var(--green); }
+  .route-stat .value.yellow { color: var(--yellow); }
+  .route-stat .value.red { color: var(--red); }
+
+  /* Schedule form */
+  .schedule-form { display: flex; flex-direction: column; gap: 1rem; }
+  .schedule-form label { font-size: 0.8rem; color: var(--text2); font-weight: 600; }
+  .schedule-form input, .schedule-form select {
+    width: 100%; background: var(--bg); border: 1px solid var(--border);
+    border-radius: 12px; padding: 0.85rem 1rem; color: var(--text);
+    font-family: 'Outfit', sans-serif; font-size: 0.9rem; outline: none;
+    transition: border-color 0.3s;
+  }
+  .schedule-form input:focus, .schedule-form select:focus {
+    border-color: var(--accent); box-shadow: 0 0 0 3px var(--glow);
+  }
+  .confirm-btn {
+    width: 100%; background: var(--accent); color: var(--bg);
+    padding: 1rem; border-radius: 12px; border: none; cursor: pointer;
+    font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 1rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .confirm-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(127,204,63,0.3); }
+  .confirm-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+  .success-msg {
+    display: none; text-align: center; padding: 2rem;
+    background: rgba(74,222,128,0.1); border: 1px solid rgba(74,222,128,0.3);
+    border-radius: 12px; margin-top: 1rem;
+  }
+  .success-msg h3 { color: var(--green); font-size: 1.2rem; margin-bottom: 0.5rem; }
+  .success-msg p { color: var(--text2); font-size: 0.9rem; }
+
+  .loading { text-align: center; padding: 4rem; color: var(--text2); }
+
+  @media (max-width: 600px) {
+    .info-grid { grid-template-columns: 1fr; }
+    .actions { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container" id="app">
+  <div class="loading" id="loadingState">Loading lead data...</div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════════════
+//  YOUR EXISTING CUSTOMERS — UPDATE WITH YOUR REAL DATA
+// ═══════════════════════════════════════════════════════════════
+//
+//  Format: { name: "Display Name", lat: XX.XXXX, lng: -XX.XXXX, day: "Monday" }
+//
+//  To get coordinates: Google Maps → right-click address → "What's here?"
+//
+const MY_CUSTOMERS = [
+  // ── Monday: LaSalle North ──
+  { name: "Customer - Joliet St", lat: 41.3480, lng: -89.0965, day: "Monday" },
+  { name: "Customer - 1st St", lat: 41.3470, lng: -89.0940, day: "Monday" },
+  { name: "Customer - Bucklin St", lat: 41.3490, lng: -89.0990, day: "Monday" },
+  { name: "Customer - Wright St", lat: 41.3460, lng: -89.1010, day: "Monday" },
+
+  // ── Tuesday: Peru ──
+  { name: "Customer - Peoria St", lat: 41.3275, lng: -89.1280, day: "Tuesday" },
+  { name: "Customer - 4th St Peru", lat: 41.3290, lng: -89.1260, day: "Tuesday" },
+  { name: "Customer - Putnam St", lat: 41.3260, lng: -89.1310, day: "Tuesday" },
+
+  // ── Wednesday: Oglesby/Utica ──
+  { name: "Customer - Walnut Oglesby", lat: 41.2955, lng: -89.0610, day: "Wednesday" },
+  { name: "Customer - Mill St Utica", lat: 41.3430, lng: -89.0140, day: "Wednesday" },
+
+  // ── Thursday: LaSalle South ──
+  { name: "Customer - Chartres St", lat: 41.3440, lng: -89.0900, day: "Thursday" },
+  { name: "Customer - Marquette St", lat: 41.3420, lng: -89.0920, day: "Thursday" },
+  { name: "Customer - 6th St", lat: 41.3410, lng: -89.0950, day: "Thursday" },
+
+  // ── Friday: Spring Valley ──
+  { name: "Customer - St Paul St", lat: 41.3295, lng: -89.1985, day: "Friday" },
+  { name: "Customer - Cleveland St", lat: 41.3280, lng: -89.2010, day: "Friday" },
+];
+
+// Gas cost assumptions
+const MPG = 10;  // Chevy Silverado
+const GAS_PRICE_PER_GALLON = 3.50;  // Update as needed
+const COST_PER_MILE = GAS_PRICE_PER_GALLON / MPG;
+const AVG_SPEED_MPH = 25;  // Town driving avg speed
+
+// ═══════════════════════════════════════════════════════════════
+
+const leadId = window.location.pathname.split("/").pop();
+
+async function loadLead() {
+  try {
+    const res = await fetch(`/api/lead/${leadId}`);
+    if (!res.ok) throw new Error("Not found");
+    const lead = await res.json();
+    renderLead(lead);
+  } catch (err) {
+    document.getElementById("loadingState").innerHTML =
+      '<h3 style="color:#ef4444;">Lead not found</h3><p style="color:var(--text2);">This link may have expired.</p>';
+  }
+}
+
+function getDistance(lat1, lng1, lat2, lng2) {
+  const R = 3959; // miles
+  const dLat = (lat2 - lat1) * Math.PI / 180;
+  const dLng = (lng2 - lng1) * Math.PI / 180;
+  const a = Math.sin(dLat/2)**2 + Math.cos(lat1*Math.PI/180) * Math.cos(lat2*Math.PI/180) * Math.sin(dLng/2)**2;
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+}
+
+function findClosestCustomer(lat, lng) {
+  let closest = null;
+  let minDist = Infinity;
+  MY_CUSTOMERS.forEach(c => {
+    const d = getDistance(lat, lng, c.lat, c.lng);
+    if (d < minDist) { minDist = d; closest = c; }
+  });
+  return { customer: closest, distance: minDist };
+}
+
+async function geocodeAddress(address) {
+  try {
+    const q = address.includes("IL") ? address : address + ", IL";
+    const res = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(q)}&limit=1`);
+    const data = await res.json();
+    if (data.length) return { lat: parseFloat(data[0].lat), lng: parseFloat(data[0].lon) };
+  } catch(e) { console.error("Geocode failed", e); }
+  return null;
+}
+
+function renderLead(lead) {
+  const fullName = `${lead.first_name} ${lead.last_name || ""}`.trim();
+  const address = lead.address || "";
+  const isScheduled = lead.status === "scheduled";
+
+  // Google links
+  const mapsLink = address ? `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(address)}` : null;
+  const streetViewLink = address ? `https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=${encodeURIComponent(address)}` : null;
+  const propertyLink = address ? `https://www.google.com/maps/search/${encodeURIComponent(address)}` : null;
+  const personSearchLink = `https://www.google.com/search?q=${encodeURIComponent(fullName + " " + (address || "Illinois Valley"))}`;
+  const phoneLink = lead.phone ? `tel:${lead.phone}` : null;
+
+  const app = document.getElementById("app");
+  app.innerHTML = `
+    <div class="header">
+      <h1>JUST<span>JUDDS</span> — Lead</h1>
+      <div class="lead-id">ID: ${lead.id} • ${lead.created_at ? new Date(lead.created_at).toLocaleDateString() : ""}</div>
+    </div>
+
+    <div style="text-align:center;">
+      <div class="status-badge ${isScheduled ? 'scheduled' : 'new'}">
+        <span class="dot"></span> ${isScheduled ? 'Scheduled' : 'New Lead'}
+      </div>
+    </div>
+
+    <!-- CUSTOMER INFO -->
+    <div class="card">
+      <div class="card-title">Customer Info</div>
+      <div class="info-grid">
+        <div class="info-item"><label>Name</label><div class="val">${fullName}</div></div>
+        <div class="info-item"><label>Phone</label><div class="val">${lead.phone || '<span style="color:var(--muted)">Not provided</span>'}</div></div>
+        <div class="info-item"><label>Email</label><div class="val">${lead.email}</div></div>
+        <div class="info-item"><label>Service</label><div class="val accent">${lead.service || 'Not specified'}</div></div>
+        <div class="info-item full"><label>Property Address</label><div class="val">${address || '<span style="color:var(--muted)">Not provided</span>'}</div></div>
+        <div class="info-item"><label>Estimate Preference</label><div class="val">${lead.estimate_pref || 'Not specified'}</div></div>
+        <div class="info-item"><label>How They Found Us</label><div class="val">${lead.heard_from || 'Not specified'}</div></div>
+        ${lead.notes ? `<div class="info-item full"><label>Notes</label><div class="val">${lead.notes}</div></div>` : ''}
+      </div>
+    </div>
+
+    <!-- QUICK ACTIONS -->
+    <div class="actions">
+      ${phoneLink ? `<a href="${phoneLink}" class="action-btn primary">📞 Call ${lead.first_name}</a>` : '<div></div>'}
+      <a href="${personSearchLink}" target="_blank" class="action-btn">🔍 Google ${lead.first_name}</a>
+      ${mapsLink ? `<a href="${mapsLink}" target="_blank" class="action-btn primary">🗺️ Get Directions</a>` : '<div></div>'}
+      ${propertyLink ? `<a href="${propertyLink}" target="_blank" class="action-btn">🏠 View Property</a>` : '<div></div>'}
+    </div>
+
+    <!-- ROUTE ANALYSIS (populated by geocode) -->
+    ${address ? `
+    <div class="card" id="routeCard">
+      <div class="card-title">Route Analysis</div>
+      <div id="routeAnalysis" style="color:var(--text2);font-size:0.85rem;">Calculating distance to your nearest customer...</div>
+    </div>
+    ` : ''}
+
+    <!-- SCHEDULE FORM -->
+    ${!isScheduled ? `
+    <div class="card" id="scheduleCard">
+      <div class="card-title">Schedule Estimate</div>
+      <div class="schedule-form">
+        <div>
+          <label>Date</label>
+          <input type="date" id="schedDate" min="${new Date().toISOString().split('T')[0]}">
+        </div>
+        <div>
+          <label>Time</label>
+          <input type="time" id="schedTime" value="10:00">
+        </div>
+        <button class="confirm-btn" id="confirmBtn" onclick="confirmSchedule()">
+          Confirm & Text ${lead.first_name} →
+        </button>
+      </div>
+      <div class="success-msg" id="successMsg">
+        <h3>✓ Estimate Scheduled!</h3>
+        <p id="successDetail"></p>
+      </div>
+    </div>
+    ` : `
+    <div class="card">
+      <div class="card-title">Scheduled</div>
+      <div class="info-grid">
+        <div class="info-item"><label>Date</label><div class="val accent">${lead.scheduled_date || ''}</div></div>
+        <div class="info-item"><label>Time</label><div class="val accent">${lead.scheduled_time || ''}</div></div>
+      </div>
+    </div>
+    `}
+  `;
+
+  // Run route analysis if we have an address
+  if (address) runRouteAnalysis(address);
+}
+
+async function runRouteAnalysis(address) {
+  const coords = await geocodeAddress(address);
+  const el = document.getElementById("routeAnalysis");
+  if (!el) return;
+
+  if (!coords) {
+    el.innerHTML = '<span style="color:var(--red);">Could not geocode this address.</span>';
+    return;
+  }
+
+  const result = findClosestCustomer(coords.lat, coords.lng);
+  if (!result.customer) {
+    el.innerHTML = "No existing customers to compare against.";
+    return;
+  }
+
+  const dist = result.distance;
+  const roundTrip = dist * 2;
+  const driveTimeMin = Math.round((dist / AVG_SPEED_MPH) * 60);
+  const roundTripTime = driveTimeMin * 2;
+  const gasCost = (roundTrip / MPG) * GAS_PRICE_PER_GALLON;
+
+  // Color code distance
+  let distColor = "green";
+  if (dist > 5) distColor = "yellow";
+  if (dist > 10) distColor = "red";
+
+  let costColor = "green";
+  if (gasCost > 3) costColor = "yellow";
+  if (gasCost > 6) costColor = "red";
+
+  el.innerHTML = `
+    <div class="route-card">
+      <h4>📍 Nearest Existing Customer</h4>
+      <div class="route-stat">
+        <span class="label">Closest account</span>
+        <span class="value">${result.customer.name}</span>
+      </div>
+      <div class="route-stat">
+        <span class="label">Route day</span>
+        <span class="value">${result.customer.day}</span>
+      </div>
+      <div class="route-stat">
+        <span class="label">Distance (one way)</span>
+        <span class="value ${distColor}">${dist.toFixed(1)} miles</span>
+      </div>
+    </div>
+
+    <div class="route-card">
+      <h4>💰 Cost to Service</h4>
+      <div class="route-stat">
+        <span class="label">Round trip distance</span>
+        <span class="value">${roundTrip.toFixed(1)} miles</span>
+      </div>
+      <div class="route-stat">
+        <span class="label">Drive time (round trip)</span>
+        <span class="value">${roundTripTime} min</span>
+      </div>
+      <div class="route-stat">
+        <span class="label">Gas cost (Silverado @ ${MPG} mpg, $${GAS_PRICE_PER_GALLON}/gal)</span>
+        <span class="value ${costColor}">$${gasCost.toFixed(2)}</span>
+      </div>
+    </div>
+
+    <div class="route-card">
+      <h4>💡 Recommendation</h4>
+      <div style="font-size:0.85rem; color:var(--text2); line-height:1.6;">
+        ${dist < 1 ?
+          `<span style="color:var(--green);font-weight:700;">PRIORITY</span> — This is basically on your existing ${result.customer.day} route. Add them to ${result.customer.day} at the lowest rate. Zero extra drive time.` :
+        dist < 3 ?
+          `<span style="color:var(--green);font-weight:700;">GREAT FIT</span> — Only ${dist.toFixed(1)} miles from your ${result.customer.day} route. Easy add-on. Recommend adding to ${result.customer.day}s. Minimal extra cost.` :
+        dist < 6 ?
+          `<span style="color:var(--yellow);font-weight:700;">DECENT</span> — ${dist.toFixed(1)} miles out from ${result.customer.name}. You'll spend ~$${gasCost.toFixed(2)} on gas and ${roundTripTime} min driving. Standard pricing recommended. Best on ${result.customer.day}.` :
+          `<span style="color:var(--red);font-weight:700;">FAR OUT</span> — ${dist.toFixed(1)} miles from your nearest account. $${gasCost.toFixed(2)} gas + ${roundTripTime} min drive time. Price accordingly or wait until you build more accounts in this area.`
+        }
+      </div>
+    </div>
+  `;
+}
+
+async function confirmSchedule() {
+  const date = document.getElementById("schedDate").value;
+  const time = document.getElementById("schedTime").value;
+  if (!date || !time) { alert("Pick a date and time"); return; }
+
+  const btn = document.getElementById("confirmBtn");
+  btn.textContent = "Scheduling...";
+  btn.disabled = true;
+
+  try {
+    const res = await fetch("/api/schedule", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ lead_id: leadId, date, time }),
+    });
+    const data = await res.json();
+
+    if (data.success) {
+      document.getElementById("scheduleCard").querySelector(".schedule-form").style.display = "none";
+      const msg = document.getElementById("successMsg");
+      msg.style.display = "block";
+      document.getElementById("successDetail").textContent = data.message + " — Customer has been texted!";
+    } else {
+      btn.textContent = "Error — Try Again";
+      btn.disabled = false;
+    }
+  } catch (err) {
+    btn.textContent = "Error — Try Again";
+    btn.disabled = false;
+  }
+}
+
+// Boot
+loadLead();
+</script>
+
+</body>
+</html>
