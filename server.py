@@ -131,9 +131,7 @@ RULES: Never make up prices. Be helpful despite being unhinged. Never mean or of
 def index():
     return send_from_directory("static", "index.html")
 
-@app.route("/zones")
-def zones():
-    return send_from_directory("static", "zones.html")
+
 
 @app.route("/schedule/<lead_id>")
 def schedule_page(lead_id):
