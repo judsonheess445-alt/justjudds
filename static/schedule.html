@@ -15,9 +15,7 @@
     --green: #4ade80; --yellow: #facc15; --red: #ef4444; --blue: #60a5fa;
   }
   body { font-family: 'Outfit', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; padding: 1rem; }
-
   .container { max-width: 800px; margin: 0 auto; }
-
   .header { text-align: center; padding: 2rem 0 1.5rem; }
   .header h1 { font-size: 1.5rem; font-weight: 800; margin-bottom: 0.25rem; }
   .header h1 span { color: var(--accent); }
@@ -26,8 +24,7 @@
   .status-badge {
     display: inline-flex; align-items: center; gap: 0.4rem;
     padding: 0.35rem 1rem; border-radius: 100px; font-size: 0.75rem;
-    font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
-    margin-bottom: 1.5rem;
+    font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 1.5rem;
   }
   .status-badge.new { background: rgba(96,165,250,0.15); color: var(--blue); border: 1px solid rgba(96,165,250,0.3); }
   .status-badge.scheduled { background: rgba(74,222,128,0.15); color: var(--green); border: 1px solid rgba(74,222,128,0.3); }
@@ -35,11 +32,7 @@
   .status-badge.new .dot { background: var(--blue); }
   .status-badge.scheduled .dot { background: var(--green); }
 
-  /* Cards */
-  .card {
-    background: var(--card); border: 1px solid var(--border);
-    border-radius: 16px; padding: 1.5rem; margin-bottom: 1rem;
-  }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 1.5rem; margin-bottom: 1rem; }
   .card-title {
     font-size: 0.7rem; font-weight: 700; letter-spacing: 0.15em;
     text-transform: uppercase; color: var(--accent); margin-bottom: 1rem;
@@ -47,37 +40,26 @@
   }
   .card-title::before { content: ''; width: 20px; height: 1px; background: var(--accent); }
 
-  /* Info grid */
   .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
   .info-item label { display: block; font-size: 0.7rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.15rem; }
   .info-item .val { font-size: 0.95rem; font-weight: 600; }
   .info-item .val.accent { color: var(--accent); }
   .info-item.full { grid-column: 1 / -1; }
 
-  /* Quick action buttons */
   .actions { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 1rem; }
   .action-btn {
     display: flex; align-items: center; justify-content: center; gap: 0.5rem;
-    background: var(--card); border: 1px solid var(--border2);
-    border-radius: 12px; padding: 0.85rem; color: var(--text);
-    text-decoration: none; font-size: 0.85rem; font-weight: 600;
-    transition: all 0.2s; cursor: pointer; font-family: 'Outfit', sans-serif;
+    background: var(--card); border: 1px solid var(--border2); border-radius: 12px;
+    padding: 0.85rem; color: var(--text); text-decoration: none; font-size: 0.85rem;
+    font-weight: 600; transition: all 0.2s; cursor: pointer; font-family: 'Outfit', sans-serif;
   }
   .action-btn:hover { background: var(--card2); transform: translateY(-1px); }
   .action-btn.primary { background: var(--accent); color: var(--bg); border-color: var(--accent); }
   .action-btn.primary:hover { box-shadow: 0 4px 20px rgba(127,204,63,0.3); }
 
-  /* Route analysis */
-  .route-card {
-    background: var(--bg2); border: 1px solid var(--border);
-    border-radius: 12px; padding: 1.25rem; margin-bottom: 0.75rem;
-  }
+  .route-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; margin-bottom: 0.75rem; }
   .route-card h4 { font-size: 0.85rem; font-weight: 700; margin-bottom: 0.5rem; }
-  .route-stat {
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 0.4rem 0; border-bottom: 1px solid var(--border);
-    font-size: 0.85rem;
-  }
+  .route-stat { display: flex; justify-content: space-between; align-items: center; padding: 0.4rem 0; border-bottom: 1px solid var(--border); font-size: 0.85rem; }
   .route-stat:last-child { border: none; }
   .route-stat .label { color: var(--text2); }
   .route-stat .value { font-weight: 700; }
@@ -85,32 +67,22 @@
   .route-stat .value.yellow { color: var(--yellow); }
   .route-stat .value.red { color: var(--red); }
 
-  /* Schedule form */
   .schedule-form { display: flex; flex-direction: column; gap: 1rem; }
   .schedule-form label { font-size: 0.8rem; color: var(--text2); font-weight: 600; }
   .schedule-form input, .schedule-form select {
-    width: 100%; background: var(--bg); border: 1px solid var(--border);
-    border-radius: 12px; padding: 0.85rem 1rem; color: var(--text);
-    font-family: 'Outfit', sans-serif; font-size: 0.9rem; outline: none;
-    transition: border-color 0.3s;
+    width: 100%; background: var(--bg); border: 1px solid var(--border); border-radius: 12px;
+    padding: 0.85rem 1rem; color: var(--text); font-family: 'Outfit', sans-serif; font-size: 0.9rem; outline: none;
   }
-  .schedule-form input:focus, .schedule-form select:focus {
-    border-color: var(--accent); box-shadow: 0 0 0 3px var(--glow);
-  }
+  .schedule-form input:focus, .schedule-form select:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--glow); }
   .confirm-btn {
-    width: 100%; background: var(--accent); color: var(--bg);
-    padding: 1rem; border-radius: 12px; border: none; cursor: pointer;
-    font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 1rem;
+    width: 100%; background: var(--accent); color: var(--bg); padding: 1rem; border-radius: 12px;
+    border: none; cursor: pointer; font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 1rem;
     transition: transform 0.2s, box-shadow 0.2s;
   }
   .confirm-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(127,204,63,0.3); }
   .confirm-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
 
-  .success-msg {
-    display: none; text-align: center; padding: 2rem;
-    background: rgba(74,222,128,0.1); border: 1px solid rgba(74,222,128,0.3);
-    border-radius: 12px; margin-top: 1rem;
-  }
+  .success-msg { display: none; text-align: center; padding: 2rem; background: rgba(74,222,128,0.1); border: 1px solid rgba(74,222,128,0.3); border-radius: 12px; margin-top: 1rem; }
   .success-msg h3 { color: var(--green); font-size: 1.2rem; margin-bottom: 0.5rem; }
   .success-msg p { color: var(--text2); font-size: 0.9rem; }
 
@@ -130,44 +102,78 @@
 
 <script>
 // ═══════════════════════════════════════════════════════════════
-//  YOUR EXISTING CUSTOMERS — UPDATE WITH YOUR REAL DATA
+//  ALL 46 ACCOUNTS — Real customer data
+//  Coordinates are approximate based on street grid
+//  Fine-tune: Google Maps → right-click → "What's here?"
 // ═══════════════════════════════════════════════════════════════
-//
-//  Format: { name: "Display Name", lat: XX.XXXX, lng: -XX.XXXX, day: "Monday" }
-//
-//  To get coordinates: Google Maps → right-click address → "What's here?"
-//
+
 const MY_CUSTOMERS = [
-  // ── Monday: LaSalle North ──
-  { name: "Customer - Joliet St", lat: 41.3480, lng: -89.0965, day: "Monday" },
-  { name: "Customer - 1st St", lat: 41.3470, lng: -89.0940, day: "Monday" },
-  { name: "Customer - Bucklin St", lat: 41.3490, lng: -89.0990, day: "Monday" },
-  { name: "Customer - Wright St", lat: 41.3460, lng: -89.1010, day: "Monday" },
+  // ── LaSalle (Monday) ──
+  { name: "Gage", lat: 41.3458, lng: -89.0932, day: "Monday", price: 45, time: 12 },
+  { name: "Gary Morse", lat: 41.3442, lng: -89.0985, day: "Monday", price: 37, time: 15 },
+  { name: "Rob", lat: 41.3448, lng: -89.096, day: "Monday", time: 40 },
+  { name: "Tony C", lat: 41.343, lng: -89.0905, day: "Monday", price: 50, time: 30 },
+  { name: "1117 St Vincent", lat: 41.3462, lng: -89.0948, day: "Monday", price: 30, time: 30 },
+  { name: "1045 Marquette", lat: 41.3455, lng: -89.0952, day: "Monday", price: 30, time: 30 },
+  { name: "David 420", lat: 41.3445, lng: -89.0972, day: "Monday", price: 30, time: 12 },
+  { name: "Mike 420", lat: 41.3438, lng: -89.092, day: "Monday", price: 37, time: 10 },
+  { name: "David 910", lat: 41.3452, lng: -89.0942, day: "Monday", price: 25, time: 15 },
 
-  // ── Tuesday: Peru ──
-  { name: "Customer - Peoria St", lat: 41.3275, lng: -89.1280, day: "Tuesday" },
-  { name: "Customer - 4th St Peru", lat: 41.3290, lng: -89.1260, day: "Tuesday" },
-  { name: "Customer - Putnam St", lat: 41.3260, lng: -89.1310, day: "Tuesday" },
+  // ── Peru Central (Tuesday) ──
+  { name: "Beth Wallace", lat: 41.3325, lng: -89.1355, day: "Tuesday", price: 50, time: 30 },
+  { name: "Freda Kapetaneas", lat: 41.3292, lng: -89.1305, day: "Tuesday", price: 35, time: 20 },
+  { name: "Peru Mall", lat: 41.3342, lng: -89.1365, day: "Tuesday", price: 400, time: 240 },
+  { name: "Jim T", lat: 41.3305, lng: -89.1325, day: "Tuesday", price: 60, time: 30 },
+  { name: "Mike M", lat: 41.3303, lng: -89.1322, day: "Tuesday", price: 45, time: 25 },
+  { name: "Paul Perona", lat: 41.3298, lng: -89.1275, day: "Tuesday", price: 60, time: 25 },
+  { name: "Town Homes", lat: 41.3288, lng: -89.128, day: "Tuesday", price: 115, time: 27 },
+  { name: "Oak Ridge", lat: 41.3285, lng: -89.1285, day: "Tuesday", price: 205, time: 80 },
+  { name: "Micheal Wollack", lat: 41.3282, lng: -89.1295, day: "Tuesday", time: 35 },
+  { name: "Jill & Herb Klein", lat: 41.3362, lng: -89.115, day: "Tuesday", price: 60, time: 30 },
 
-  // ── Wednesday: Oglesby/Utica ──
-  { name: "Customer - Walnut Oglesby", lat: 41.2955, lng: -89.0610, day: "Wednesday" },
-  { name: "Customer - Mill St Utica", lat: 41.3430, lng: -89.0140, day: "Wednesday" },
+  // ── Peru South (Tuesday) ──
+  { name: "1400 4th", lat: 41.3262, lng: -89.1248, day: "Tuesday", price: 55, time: 20 },
+  { name: "Jackie Reland", lat: 41.3258, lng: -89.1245, day: "Tuesday", price: 35, time: 12 },
+  { name: "Jan Studer", lat: 41.3272, lng: -89.1235, day: "Tuesday", price: 40, time: 17 },
+  { name: "Jayne", lat: 41.3252, lng: -89.1205, day: "Tuesday", time: 10 },
+  { name: "Matt Becker", lat: 41.3268, lng: -89.1242, day: "Tuesday", price: 40, time: 15 },
+  { name: "1005 Herbert", lat: 41.3248, lng: -89.1218, day: "Tuesday", price: 30, time: 15 },
+  { name: "David 4th", lat: 41.3278, lng: -89.1262, day: "Tuesday", price: 27, time: 15 },
+  { name: "615 Green", lat: 41.3242, lng: -89.1208, day: "Tuesday", price: 30, time: 15 },
+  { name: "703 Cross", lat: 41.3245, lng: -89.1212, day: "Tuesday", price: 30, time: 15 },
+  { name: "1728 TCG", lat: 41.3265, lng: -89.1238, day: "Tuesday", price: 45, time: 17 },
+  { name: "Mike 11th", lat: 41.3238, lng: -89.1192, day: "Tuesday", price: 42, time: 12 },
+  { name: "405 Schuyler", lat: 41.325, lng: -89.1222, day: "Tuesday", price: 45, time: 25 },
+  { name: "Sean", lat: 41.3256, lng: -89.123, day: "Tuesday", price: 50, time: 35 },
 
-  // ── Thursday: LaSalle South ──
-  { name: "Customer - Chartres St", lat: 41.3440, lng: -89.0900, day: "Thursday" },
-  { name: "Customer - Marquette St", lat: 41.3420, lng: -89.0920, day: "Thursday" },
-  { name: "Customer - 6th St", lat: 41.3410, lng: -89.0950, day: "Thursday" },
+  // ── Peru Rural / 259th Rd (Wednesday) ──
+  { name: "Fran Zeller", lat: 41.3355, lng: -89.1095, day: "Wednesday", price: 57, time: 40 },
+  { name: "Sim Chiu", lat: 41.3358, lng: -89.1108, day: "Wednesday", price: 45, time: 25 },
+  { name: "Treva Mcphedran", lat: 41.336, lng: -89.1102, day: "Wednesday", price: 45, time: 20 },
 
-  // ── Friday: Spring Valley ──
-  { name: "Customer - St Paul St", lat: 41.3295, lng: -89.1985, day: "Friday" },
-  { name: "Customer - Cleveland St", lat: 41.3280, lng: -89.2010, day: "Friday" },
+  // ── Oglesby (Wednesday) ──
+  { name: "Angie Loebach", lat: 41.2958, lng: -89.0622, day: "Wednesday", price: 40, time: 20 },
+  { name: "Betty", lat: 41.2962, lng: -89.0582, day: "Wednesday", price: 50, time: 22 },
+  { name: "Brian Spelich", lat: 41.2948, lng: -89.0608, day: "Wednesday", price: 40, time: 10 },
+  { name: "Gary Peterlin", lat: 41.2955, lng: -89.0618, day: "Wednesday", price: 55, time: 15 },
+  { name: "Jack D", lat: 41.2972, lng: -89.0598, day: "Wednesday", price: 35, time: 10 },
+  { name: "Linda Walsh", lat: 41.2965, lng: -89.0578, day: "Wednesday", price: 40, time: 12 },
+  { name: "TCG OG", lat: 41.2942, lng: -89.0602, day: "Wednesday", price: 60, time: 10 },
+  { name: "Kathy", lat: 41.2967, lng: -89.0572, day: "Wednesday", price: 40, time: 25 },
+  { name: "Margo", lat: 41.2952, lng: -89.0612, day: "Wednesday", price: 35, time: 15 },
+
+  // ── Utica (Thursday) ──
+  { name: "Utica Apartments", lat: 41.3427, lng: -89.013, day: "Thursday", price: 60, time: 20 },
+
+  // ── Spring Valley (Friday) ──
+  { name: "Spring Valley APT", lat: 41.3292, lng: -89.1988, day: "Friday", price: 60, time: 40 },
 ];
 
-// Gas cost assumptions
-const MPG = 10;  // Chevy Silverado
-const GAS_PRICE_PER_GALLON = 3.50;  // Update as needed
+// ── Gas / drive assumptions ──
+const MPG = 10;
+const GAS_PRICE_PER_GALLON = 3.50;
 const COST_PER_MILE = GAS_PRICE_PER_GALLON / MPG;
-const AVG_SPEED_MPH = 25;  // Town driving avg speed
+const AVG_SPEED_MPH = 25;
 
 // ═══════════════════════════════════════════════════════════════
 
@@ -181,26 +187,23 @@ async function loadLead() {
     renderLead(lead);
   } catch (err) {
     document.getElementById("loadingState").innerHTML =
-      '<h3 style="color:#ef4444;">Lead not found</h3><p style="color:var(--text2);">This link may have expired.</p>';
+      '<h3 style="color:#ef4444;">Lead not found</h3><p style="color:var(--text2);">This link may have expired or is invalid.</p>';
   }
 }
 
 function getDistance(lat1, lng1, lat2, lng2) {
-  const R = 3959; // miles
+  const R = 3959;
   const dLat = (lat2 - lat1) * Math.PI / 180;
   const dLng = (lng2 - lng1) * Math.PI / 180;
   const a = Math.sin(dLat/2)**2 + Math.cos(lat1*Math.PI/180) * Math.cos(lat2*Math.PI/180) * Math.sin(dLng/2)**2;
   return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
 }
 
-function findClosestCustomer(lat, lng) {
-  let closest = null;
-  let minDist = Infinity;
-  MY_CUSTOMERS.forEach(c => {
-    const d = getDistance(lat, lng, c.lat, c.lng);
-    if (d < minDist) { minDist = d; closest = c; }
-  });
-  return { customer: closest, distance: minDist };
+function findClosestCustomers(lat, lng, topN = 3) {
+  const sorted = MY_CUSTOMERS.map(c => ({
+    ...c, distance: getDistance(lat, lng, c.lat, c.lng)
+  })).sort((a, b) => a.distance - b.distance);
+  return sorted.slice(0, topN);
 }
 
 async function geocodeAddress(address) {
@@ -218,9 +221,7 @@ function renderLead(lead) {
   const address = lead.address || "";
   const isScheduled = lead.status === "scheduled";
 
-  // Google links
   const mapsLink = address ? `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(address)}` : null;
-  const streetViewLink = address ? `https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=${encodeURIComponent(address)}` : null;
   const propertyLink = address ? `https://www.google.com/maps/search/${encodeURIComponent(address)}` : null;
   const personSearchLink = `https://www.google.com/search?q=${encodeURIComponent(fullName + " " + (address || "Illinois Valley"))}`;
   const phoneLink = lead.phone ? `tel:${lead.phone}` : null;
@@ -229,7 +230,7 @@ function renderLead(lead) {
   app.innerHTML = `
     <div class="header">
       <h1>JUST<span>JUDDS</span> — Lead</h1>
-      <div class="lead-id">ID: ${lead.id} • ${lead.created_at ? new Date(lead.created_at).toLocaleDateString() : ""}</div>
+      <div class="lead-id">ID: ${lead.id} &bull; ${lead.created_at ? new Date(lead.created_at).toLocaleDateString() : ""}</div>
     </div>
 
     <div style="text-align:center;">
@@ -238,22 +239,20 @@ function renderLead(lead) {
       </div>
     </div>
 
-    <!-- CUSTOMER INFO -->
     <div class="card">
       <div class="card-title">Customer Info</div>
       <div class="info-grid">
         <div class="info-item"><label>Name</label><div class="val">${fullName}</div></div>
-        <div class="info-item"><label>Phone</label><div class="val">${lead.phone || '<span style="color:var(--muted)">Not provided</span>'}</div></div>
+        <div class="info-item"><label>Phone</label><div class="val">${lead.phone || '<span style="color:var(--muted)">N/A</span>'}</div></div>
         <div class="info-item"><label>Email</label><div class="val">${lead.email}</div></div>
-        <div class="info-item"><label>Service</label><div class="val accent">${lead.service || 'Not specified'}</div></div>
+        <div class="info-item"><label>Service</label><div class="val accent">${lead.service || 'N/A'}</div></div>
         <div class="info-item full"><label>Property Address</label><div class="val">${address || '<span style="color:var(--muted)">Not provided</span>'}</div></div>
-        <div class="info-item"><label>Estimate Preference</label><div class="val">${lead.estimate_pref || 'Not specified'}</div></div>
-        <div class="info-item"><label>How They Found Us</label><div class="val">${lead.heard_from || 'Not specified'}</div></div>
+        <div class="info-item"><label>Estimate Pref</label><div class="val">${lead.estimate_pref || 'N/A'}</div></div>
+        <div class="info-item"><label>Found Us Via</label><div class="val">${lead.heard_from || 'N/A'}</div></div>
         ${lead.notes ? `<div class="info-item full"><label>Notes</label><div class="val">${lead.notes}</div></div>` : ''}
       </div>
     </div>
 
-    <!-- QUICK ACTIONS -->
     <div class="actions">
       ${phoneLink ? `<a href="${phoneLink}" class="action-btn primary">📞 Call ${lead.first_name}</a>` : '<div></div>'}
       <a href="${personSearchLink}" target="_blank" class="action-btn">🔍 Google ${lead.first_name}</a>
@@ -261,48 +260,34 @@ function renderLead(lead) {
       ${propertyLink ? `<a href="${propertyLink}" target="_blank" class="action-btn">🏠 View Property</a>` : '<div></div>'}
     </div>
 
-    <!-- ROUTE ANALYSIS (populated by geocode) -->
     ${address ? `
     <div class="card" id="routeCard">
       <div class="card-title">Route Analysis</div>
-      <div id="routeAnalysis" style="color:var(--text2);font-size:0.85rem;">Calculating distance to your nearest customer...</div>
-    </div>
-    ` : ''}
+      <div id="routeAnalysis" style="color:var(--text2);font-size:0.85rem;">Calculating closest accounts...</div>
+    </div>` : ''}
 
-    <!-- SCHEDULE FORM -->
     ${!isScheduled ? `
     <div class="card" id="scheduleCard">
       <div class="card-title">Schedule Estimate</div>
       <div class="schedule-form">
-        <div>
-          <label>Date</label>
-          <input type="date" id="schedDate" min="${new Date().toISOString().split('T')[0]}">
-        </div>
-        <div>
-          <label>Time</label>
-          <input type="time" id="schedTime" value="10:00">
-        </div>
-        <button class="confirm-btn" id="confirmBtn" onclick="confirmSchedule()">
-          Confirm & Text ${lead.first_name} →
-        </button>
+        <div><label>Date</label><input type="date" id="schedDate" min="${new Date().toISOString().split('T')[0]}"></div>
+        <div><label>Time</label><input type="time" id="schedTime" value="10:00"></div>
+        <button class="confirm-btn" id="confirmBtn" onclick="confirmSchedule()">Confirm & Text ${lead.first_name} →</button>
       </div>
       <div class="success-msg" id="successMsg">
         <h3>✓ Estimate Scheduled!</h3>
         <p id="successDetail"></p>
       </div>
-    </div>
-    ` : `
+    </div>` : `
     <div class="card">
       <div class="card-title">Scheduled</div>
       <div class="info-grid">
         <div class="info-item"><label>Date</label><div class="val accent">${lead.scheduled_date || ''}</div></div>
         <div class="info-item"><label>Time</label><div class="val accent">${lead.scheduled_time || ''}</div></div>
       </div>
-    </div>
-    `}
+    </div>`}
   `;
 
-  // Run route analysis if we have an address
   if (address) runRouteAnalysis(address);
 }
 
@@ -312,74 +297,66 @@ async function runRouteAnalysis(address) {
   if (!el) return;
 
   if (!coords) {
-    el.innerHTML = '<span style="color:var(--red);">Could not geocode this address.</span>';
+    el.innerHTML = '<span style="color:var(--red);">Could not geocode address.</span>';
     return;
   }
 
-  const result = findClosestCustomer(coords.lat, coords.lng);
-  if (!result.customer) {
-    el.innerHTML = "No existing customers to compare against.";
-    return;
-  }
+  const top3 = findClosestCustomers(coords.lat, coords.lng, 3);
+  const closest = top3[0];
+  if (!closest) { el.innerHTML = "No customers to compare."; return; }
 
-  const dist = result.distance;
+  const dist = closest.distance;
   const roundTrip = dist * 2;
   const driveTimeMin = Math.round((dist / AVG_SPEED_MPH) * 60);
   const roundTripTime = driveTimeMin * 2;
-  const gasCost = (roundTrip / MPG) * GAS_PRICE_PER_GALLON;
+  const gallonsUsed = roundTrip / MPG;
+  const gasCost = gallonsUsed * GAS_PRICE_PER_GALLON;
 
-  // Color code distance
-  let distColor = "green";
-  if (dist > 5) distColor = "yellow";
-  if (dist > 10) distColor = "red";
+  let distColor = dist < 2 ? "green" : dist < 5 ? "yellow" : "red";
+  let costColor = gasCost < 2 ? "green" : gasCost < 4 ? "yellow" : "red";
 
-  let costColor = "green";
-  if (gasCost > 3) costColor = "yellow";
-  if (gasCost > 6) costColor = "red";
+  // Build top 3 nearest HTML
+  let top3Html = top3.map((c, i) => `
+    <div class="route-stat">
+      <span class="label">${i+1}. ${c.name} (${c.day})</span>
+      <span class="value ${c.distance < 2 ? 'green' : c.distance < 5 ? 'yellow' : 'red'}">${c.distance.toFixed(1)} mi</span>
+    </div>
+  `).join("");
 
   el.innerHTML = `
     <div class="route-card">
-      <h4>📍 Nearest Existing Customer</h4>
-      <div class="route-stat">
-        <span class="label">Closest account</span>
-        <span class="value">${result.customer.name}</span>
-      </div>
-      <div class="route-stat">
-        <span class="label">Route day</span>
-        <span class="value">${result.customer.day}</span>
-      </div>
-      <div class="route-stat">
-        <span class="label">Distance (one way)</span>
-        <span class="value ${distColor}">${dist.toFixed(1)} miles</span>
-      </div>
+      <h4>📍 3 Nearest Accounts</h4>
+      ${top3Html}
     </div>
 
     <div class="route-card">
-      <h4>💰 Cost to Service</h4>
+      <h4>🚛 Drive Cost (Silverado @ ${MPG} mpg)</h4>
       <div class="route-stat">
-        <span class="label">Round trip distance</span>
+        <span class="label">Round trip from ${closest.name}</span>
         <span class="value">${roundTrip.toFixed(1)} miles</span>
       </div>
       <div class="route-stat">
-        <span class="label">Drive time (round trip)</span>
+        <span class="label">Drive time (round trip @ ${AVG_SPEED_MPH}mph)</span>
         <span class="value">${roundTripTime} min</span>
       </div>
       <div class="route-stat">
-        <span class="label">Gas cost (Silverado @ ${MPG} mpg, $${GAS_PRICE_PER_GALLON}/gal)</span>
+        <span class="label">Gas (${gallonsUsed.toFixed(2)} gal @ $${GAS_PRICE_PER_GALLON}/gal)</span>
         <span class="value ${costColor}">$${gasCost.toFixed(2)}</span>
       </div>
     </div>
 
     <div class="route-card">
       <h4>💡 Recommendation</h4>
-      <div style="font-size:0.85rem; color:var(--text2); line-height:1.6;">
-        ${dist < 1 ?
-          `<span style="color:var(--green);font-weight:700;">PRIORITY</span> — This is basically on your existing ${result.customer.day} route. Add them to ${result.customer.day} at the lowest rate. Zero extra drive time.` :
+      <div style="font-size:0.85rem;color:var(--text2);line-height:1.6;">
+        ${dist < 0.5 ?
+          `<span style="color:var(--green);font-weight:700;">ON YOUR ROUTE</span> — This address is RIGHT next to ${closest.name}. Add to <strong>${closest.day}</strong> at Priority Zone pricing ($30). Basically zero extra cost.` :
+        dist < 1.5 ?
+          `<span style="color:var(--green);font-weight:700;">GREAT FIT</span> — Only ${dist.toFixed(1)} mi from ${closest.name}. Add to <strong>${closest.day}</strong>. $${gasCost.toFixed(2)} gas, ${roundTripTime} min extra. Priority/Nearby pricing.` :
         dist < 3 ?
-          `<span style="color:var(--green);font-weight:700;">GREAT FIT</span> — Only ${dist.toFixed(1)} miles from your ${result.customer.day} route. Easy add-on. Recommend adding to ${result.customer.day}s. Minimal extra cost.` :
+          `<span style="color:var(--yellow);font-weight:700;">SOLID</span> — ${dist.toFixed(1)} mi from ${closest.name}. Recommend <strong>${closest.day}</strong>. $${gasCost.toFixed(2)} gas + ${roundTripTime} min. Nearby Zone pricing ($35).` :
         dist < 6 ?
-          `<span style="color:var(--yellow);font-weight:700;">DECENT</span> — ${dist.toFixed(1)} miles out from ${result.customer.name}. You'll spend ~$${gasCost.toFixed(2)} on gas and ${roundTripTime} min driving. Standard pricing recommended. Best on ${result.customer.day}.` :
-          `<span style="color:var(--red);font-weight:700;">FAR OUT</span> — ${dist.toFixed(1)} miles from your nearest account. $${gasCost.toFixed(2)} gas + ${roundTripTime} min drive time. Price accordingly or wait until you build more accounts in this area.`
+          `<span style="color:var(--yellow);font-weight:700;">WORTH IT IF PRICED RIGHT</span> — ${dist.toFixed(1)} mi out. $${gasCost.toFixed(2)} gas + ${roundTripTime} min. Standard pricing ($40+). Best on <strong>${closest.day}</strong>.` :
+          `<span style="color:var(--red);font-weight:700;">FAR OUT</span> — ${dist.toFixed(1)} mi from nearest account. $${gasCost.toFixed(2)} gas + ${roundTripTime} min. Price high ($45+) or wait for more accounts in this area.`
         }
       </div>
     </div>
@@ -402,25 +379,19 @@ async function confirmSchedule() {
       body: JSON.stringify({ lead_id: leadId, date, time }),
     });
     const data = await res.json();
-
     if (data.success) {
       document.getElementById("scheduleCard").querySelector(".schedule-form").style.display = "none";
-      const msg = document.getElementById("successMsg");
-      msg.style.display = "block";
+      document.getElementById("successMsg").style.display = "block";
       document.getElementById("successDetail").textContent = data.message + " — Customer has been texted!";
     } else {
-      btn.textContent = "Error — Try Again";
-      btn.disabled = false;
+      btn.textContent = "Error — Try Again"; btn.disabled = false;
     }
   } catch (err) {
-    btn.textContent = "Error — Try Again";
-    btn.disabled = false;
+    btn.textContent = "Error — Try Again"; btn.disabled = false;
   }
 }
 
-// Boot
 loadLead();
 </script>
-
 </body>
 </html>
