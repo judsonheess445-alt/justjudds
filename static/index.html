@@ -309,18 +309,40 @@
     </div>
     <form class="contact-form reveal" onsubmit="handleSubmit(event)">
       <div class="form-row">
-        <input type="text" placeholder="First Name" required>
-        <input type="text" placeholder="Last Name" required>
+        <input type="text" id="f_first" placeholder="First Name *" required>
+        <input type="text" id="f_last" placeholder="Last Name">
       </div>
-      <input type="email" placeholder="Email Address" required>
-      <input type="tel" placeholder="Phone Number">
-      <select required>
+      <input type="email" id="f_email" placeholder="Email Address *" required>
+      <input type="tel" id="f_phone" placeholder="Phone Number">
+      <input type="text" id="f_address" placeholder="Property Address (street, city)">
+      <select id="f_service" required>
         <option value="" disabled selected>Select a Service</option>
-        <option>Lawn Mowing</option><option>Hedge Trimming</option><option>Fall Cleanup</option>
-        <option>Snow Removal</option><option>Landscaping</option><option>Commercial Services</option><option>Other</option>
+        <option>Lawn Mowing</option>
+        <option>Hedge Trimming</option>
+        <option>Fall Cleanup</option>
+        <option>Snow Removal</option>
+        <option>Landscaping</option>
+        <option>Commercial Services</option>
+        <option>Other</option>
       </select>
-      <textarea placeholder="Tell us about your property or project..."></textarea>
-      <button type="submit" class="btn-primary" style="justify-content:center;">Submit Request →</button>
+      <select id="f_heard">
+        <option value="" disabled selected>How did you hear about us?</option>
+        <option>Google Search</option>
+        <option>Facebook</option>
+        <option>Neighbor / Word of Mouth</option>
+        <option>Saw Your Truck</option>
+        <option>Door Hanger / Flyer</option>
+        <option>Yard Sign</option>
+        <option>Other</option>
+      </select>
+      <select id="f_estimate">
+        <option value="" disabled selected>Estimate visit preference</option>
+        <option value="Come anytime">Come out anytime — no need to meet</option>
+        <option value="Meet me there">I'd like to meet you there</option>
+      </select>
+      <p style="font-size: 0.78rem; color: var(--text-muted); margin-top: -0.5rem;">We'll send you a heads-up before we arrive for the estimate.</p>
+      <textarea id="f_notes" placeholder="Anything else we should know? (gate codes, dog in yard, special requests, etc.)"></textarea>
+      <button type="submit" class="btn-primary" id="submitBtn" style="justify-content:center;">Submit Request →</button>
     </form>
   </div>
 </section>
@@ -376,14 +398,51 @@
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
   // === FORM ===
-  function handleSubmit(e) {
-    e.preventDefault();
-    const btn = e.target.querySelector('button');
-    btn.textContent = '✓ Request Sent!';
-    btn.style.background = '#5a9a2a';
-    setTimeout(() => { btn.textContent = 'Submit Request →'; btn.style.background = ''; e.target.reset(); }, 3000);
-  }
+ async function handleSubmit(e) {
+      e.preventDefault();
+      const btn = document.getElementById('submitBtn');
+      btn.textContent = 'Sending...';
+      btn.disabled = true;
 
+      const formData = {
+        first_name: document.getElementById('f_first').value,
+        last_name: document.getElementById('f_last').value,
+        email: document.getElementById('f_email').value,
+        phone: document.getElementById('f_phone').value,
+        address: document.getElementById('f_address').value,
+        service: document.getElementById('f_service').value,
+        heard_from: document.getElementById('f_heard').value,
+        estimate_pref: document.getElementById('f_estimate').value,
+        notes: document.getElementById('f_notes').value,
+      };
+
+      try {
+        const res = await fetch('/submit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData),
+        });
+        const data = await res.json();
+
+        btn.textContent = '✓ Request Sent!';
+        btn.style.background = '#5a9a2a';
+        e.target.reset();
+
+        setTimeout(() => {
+          btn.textContent = 'Submit Request →';
+          btn.style.background = '';
+          btn.disabled = false;
+        }, 4000);
+      } catch (err) {
+        btn.textContent = 'Error — Try Again';
+        btn.style.background = '#c0392b';
+        btn.disabled = false;
+        setTimeout(() => {
+          btn.textContent = 'Submit Request →';
+          btn.style.background = '';
+        }, 3000);
+      }
+    }
   // === CHATBOT ===
   const chatFab = document.getElementById('chatFab');
   const chatWindow = document.getElementById('chatWindow');
